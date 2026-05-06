@@ -750,7 +750,10 @@ input:focus, select:focus {
 [data-theme="dark"] .tab { background: #1e293b; border-color: #334155; color: #cbd5e1; }
 [data-theme="dark"] .tab.active { background: #10b981; color: white; border-color: #10b981; }
 [data-theme="dark"] .search-input,
-[data-theme="dark"] .sort-select { background: #1e293b; border-color: #334155; color: #e5e7eb; }
+[data-theme="dark"] .sort-select { background-color: #1e293b; border-color: #334155; color: #e5e7eb; }
+[data-theme="dark"] .sort-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
 [data-theme="dark"] .search-input::placeholder { color: #64748b; }
 [data-theme="dark"] .section-header h2 { color: #e5e7eb; }
 [data-theme="dark"] .card { background: #1e293b; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
