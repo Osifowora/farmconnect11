@@ -59,6 +59,8 @@ function formatDate(timestamp) {
 function drawCard(item) {
     const card = document.createElement('div');
     card.classList.add('card');
+    card.dataset.createdAt = item.createdAt?.toMillis?.() || 0;
+    card.dataset.priceNum = parseInt(String(item.price).replace(/\D/g, ''), 10) || 0;
 
     const phoneNumber = item.phone || "2349025013517";
     const message = encodeURIComponent(`Hello, I'm interested in the ${item.title} listed on FarmConnect.`);
@@ -102,6 +104,7 @@ function initListeners() {
             return;
         }
         snapshot.forEach((doc) => drawCard(doc.data()));
+        applySort();
     }, (error) => {
         console.error("Listener Error:", error);
     });
@@ -300,3 +303,16 @@ document.querySelectorAll('.tab').forEach(tab => {
         });
     });
 });
+
+function applySort() {
+    const sortBy = document.getElementById('sort-select').value;
+    const cards = Array.from(gridContainer.querySelectorAll('.card'));
+    cards.sort((a, b) => {
+        if (sortBy === 'price-asc') return a.dataset.priceNum - b.dataset.priceNum;
+        if (sortBy === 'price-desc') return b.dataset.priceNum - a.dataset.priceNum;
+        return b.dataset.createdAt - a.dataset.createdAt;
+    });
+    cards.forEach(card => gridContainer.appendChild(card));
+}
+
+document.getElementById('sort-select').addEventListener('change', applySort);
