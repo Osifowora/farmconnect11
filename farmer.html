@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Portal | FarmConnect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌿 FarmConnect</div>
+        <div class="nav-links" id="nav-auth-area"></div>
+    </nav>
+    <div class="form-container">
+        <div class="form-card">
+            <h2>List Your Harvest</h2>
+            <form id="upload-form">
+                <div class="input-group">
+                    <label for="title">Produce Name</label>
+                    <input type="text" id="title" placeholder="e.g. Fresh Red Onions" required>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="category">Category</label>
+                        <select id="category" required>
+                            <option value="Vegetables">Vegetables</option>
+                            <option value="Fruits">Fruits</option>
+                            <option value="Grains">Grains</option>
+                            <option value="Tubers">Tubers</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="price">Price (₦)</label>
+                        <input type="number" id="price" placeholder="50000" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="text" id="quantity" placeholder="50kg Bag" required>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="farmer">Farmer Name</label>
+                        <input type="text" id="farmer" placeholder="Your Name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="e.g. Epe" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="phone">WhatsApp Number</label>
+                    <input type="tel" id="phone" placeholder="e.g. 08012345678 or +234 801 234 5678" required>
+                </div>
+                <div class="input-group">
+                    <label for="image">Image URL</label>
+                    <input type="url" id="image" placeholder="https://example.com/image.jpg">
+                </div>
+                <button type="submit" class="btn-submit" id="submit-btn">List Produce</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="common.js"></script>
+    <script src="farmer.js"></script>
+</body>
+</html>

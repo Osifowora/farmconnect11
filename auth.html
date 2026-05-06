@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | FarmConnect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌿 FarmConnect</div>
+        <div class="nav-links">
+            <a href="index.html" class="btn-text" style="text-decoration: none;">Back to Market</a>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <div class="form-card auth-card">
+            <h2 id="auth-title">Welcome to FarmConnect</h2>
+            <p class="auth-subtitle">Sign in to list produce or leave reviews</p>
+
+            <div class="auth-method-tabs">
+                <button class="auth-tab active" data-method="phone" type="button">📱 Phone</button>
+                <button class="auth-tab" data-method="email" type="button">✉️ Email</button>
+            </div>
+
+            <!-- Phone flow -->
+            <div class="auth-flow" id="phone-flow">
+                <div id="phone-step-1">
+                    <div class="input-group">
+                        <label for="phone-input">Phone Number</label>
+                        <input type="tel" id="phone-input" placeholder="08012345678 or +234 801 234 5678">
+                    </div>
+                    <button class="btn-submit" id="send-code-btn" type="button">Send Verification Code</button>
+                </div>
+                <div id="phone-step-2" style="display:none;">
+                    <div class="input-group">
+                        <label for="code-input">Verification Code</label>
+                        <input type="text" id="code-input" placeholder="6-digit code" maxlength="6" inputmode="numeric">
+                        <p class="form-hint">Sent to <span id="phone-display"></span> · <a href="#" id="change-phone">change</a></p>
+                    </div>
+                    <button class="btn-submit" id="verify-code-btn" type="button">Verify & Sign In</button>
+                </div>
+            </div>
+
+            <!-- Email flow -->
+            <div class="auth-flow" id="email-flow" style="display:none;">
+                <div class="input-group">
+                    <label for="email-input">Email</label>
+                    <input type="email" id="email-input" placeholder="you@example.com">
+                </div>
+                <div class="input-group">
+                    <label for="password-input">Password</label>
+                    <input type="password" id="password-input" placeholder="At least 6 characters">
+                </div>
+                <div class="input-group" id="email-name-group" style="display:none;">
+                    <label for="email-name">Full Name</label>
+                    <input type="text" id="email-name" placeholder="Your name or business">
+                </div>
+                <button class="btn-submit" id="email-submit-btn" type="button">Sign In</button>
+                <p class="auth-toggle">
+                    <a href="#" id="forgot-password-link">Forgot password?</a>
+                </p>
+                <p class="auth-toggle">
+                    <span id="auth-toggle-text">New here?</span>
+                    <a href="#" id="auth-toggle-link">Create an account</a>
+                </p>
+            </div>
+
+            <!-- Name prompt for new phone users -->
+            <div class="auth-flow" id="name-flow" style="display:none;">
+                <div class="input-group">
+                    <label for="profile-name">What should we call you?</label>
+                    <input type="text" id="profile-name" placeholder="Your name or business">
+                    <p class="form-hint">This appears on your listings and reviews.</p>
+                </div>
+                <button class="btn-submit" id="save-profile-btn" type="button">Continue</button>
+            </div>
+
+            <div id="auth-error" class="auth-error" style="display:none;"></div>
+        </div>
+    </div>
+
+    <div id="recaptcha-container"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>
