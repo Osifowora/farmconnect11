@@ -709,6 +709,7 @@ input:focus, select:focus {
 }
 
 .sort-select {
+    width: auto;
     margin-left: auto;
     padding: 6px 30px 6px 14px;
     border: 1px solid #e5e7eb;
@@ -753,6 +754,8 @@ input:focus, select:focus {
 [data-theme="dark"] .sort-select { background-color: #1e293b; border-color: #334155; color: #e5e7eb; }
 [data-theme="dark"] .sort-select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
 }
 [data-theme="dark"] .search-input::placeholder { color: #64748b; }
 [data-theme="dark"] .section-header h2 { color: #e5e7eb; }
