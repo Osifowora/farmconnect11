@@ -17,6 +17,55 @@ function formatPrice(price) {
     return num.toLocaleString('en-NG');
 }
 
+function getProductKey(item) {
+    return [
+        item.title || '',
+        item.farmer || '',
+        item.location || '',
+        item.phone || '',
+        item.quantity || '',
+        String(item.price || '')
+    ].join('|').toLowerCase().replace(/\s+/g, '-');
+}
+
+function getCart() {
+    try {
+        return JSON.parse(localStorage.getItem('farmconnect-cart') || '[]');
+    } catch (error) {
+        return [];
+    }
+}
+
+function saveCart(cart) {
+    localStorage.setItem('farmconnect-cart', JSON.stringify(cart));
+}
+
+function addItemToCart(item) {
+    const cart = getCart();
+    const productKey = getProductKey(item);
+    const existingItem = cart.find(entry => entry.productKey === productKey);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            productKey,
+            title: item.title,
+            category: item.category,
+            image: item.image,
+            farmer: item.farmer,
+            location: item.location,
+            phone: item.phone,
+            quantity: 1,
+            unitPrice: parseInt(String(item.price).replace(/\D/g, ''), 10) || 0,
+            createdAt: item.createdAt || new Date().toISOString()
+        });
+    }
+
+    saveCart(cart);
+    return cart;
+}
+
 function renderRatingHTML(farmerId) {
     const data = reviewsByFarmer[farmerId];
     if (!data || data.count === 0) {
@@ -66,6 +115,8 @@ function drawCard(item) {
     const message = encodeURIComponent(`Hello, I'm interested in the ${item.title} listed on FarmConnect.`);
     const whatsappLink = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
 
+    const productKey = getProductKey(item);
+
     card.innerHTML = `
         <div class="img-container skeleton">
             <img src="${item.image}" alt="${item.title}" class="card-img" onload="this.parentElement.classList.remove('skeleton')"
@@ -84,13 +135,25 @@ function drawCard(item) {
             <div class="rating-display" data-farmer-id="${escapeHtml(item.phone)}" data-farmer-name="${escapeHtml(item.farmer)}">
                 ${renderRatingHTML(item.phone)}
             </div>
-            <a href="${whatsappLink}" target="_blank" class="btn-buy">Contact via WhatsApp</a>
+            <div class="card-actions">
+                <a href="${whatsappLink}" target="_blank" class="btn-buy">Contact via WhatsApp</a>
+                <a href="checkout.html?product=${encodeURIComponent(productKey)}" class="btn-checkout">Secure Checkout</a>
+            </div>
         </div>
     `;
 
     card.querySelector('.rating-display').addEventListener('click', () => {
         openReviewModal(item.phone, item.farmer);
     });
+
+    const checkoutLink = card.querySelector('.btn-checkout');
+    if (checkoutLink) {
+        checkoutLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            addItemToCart(item);
+            window.location.href = `checkout.html?product=${encodeURIComponent(productKey)}`;
+        });
+    }
 
     gridContainer.appendChild(card);
 }
