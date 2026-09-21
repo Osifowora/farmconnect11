@@ -65,7 +65,7 @@ async function redirectToSecurePayment() {
     }
 
     const total = selectedProducts.reduce((sum, item) => sum + ((Number(item.unitPrice) || 0) * (Number(item.quantity) || 1)), 0);
-    const apiBaseUrl = 'http://localhost:4000';
+    const apiBaseUrl = window.FARMCONNECT_API_URL || '';
 
     try {
         showStatus('Creating secure order and payment session...');

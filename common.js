@@ -79,9 +79,11 @@ window.fbAuth.onAuthStateChanged(async (user) => {
                 renderSignedInNav(window.currentUserProfile);
             } else {
                 // Authenticated but no profile yet — finish setup at auth page
-                const next = window.location.pathname.split('/').pop() || 'index.html';
-                window.location.href = 'auth.html?next=' + encodeURIComponent(next);
-                return;
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                if (currentPage !== 'auth.html') {
+                    window.location.href = 'auth.html?next=' + encodeURIComponent(currentPage);
+                    return;
+                }
             }
         } catch (err) {
             console.error('Profile fetch error', err);

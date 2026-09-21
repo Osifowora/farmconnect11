@@ -1,14 +1,6 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyDw84j4rQbBC2ycsyywtYykOXAVW6Ltg68",
-  authDomain: "farmconnect-d91ed.firebaseapp.com",
-  projectId: "farmconnect-d91ed",
-  storageBucket: "farmconnect-d91ed.firebasestorage.app",
-  messagingSenderId: "923903856948",
-  appId: "1:923903856948:web:0cae9f751a9fc6ba001561"
-};
-if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+// Firebase is initialized by common.js — use the shared instances
+const auth = window.fbAuth;
+const db = window.fbDb;
 
 const urlParams = new URLSearchParams(window.location.search);
 const nextUrl = urlParams.get('next') || 'index.html';
