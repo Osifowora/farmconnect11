@@ -52,6 +52,80 @@ function updateCartBadge() {
 }
 window.updateCartBadge = updateCartBadge;
 
+/* ===== Centralized Custom Popups ===== */
+
+function showAlertModal({ icon = '🌿', title = 'Notice', message = '', buttonText = 'Got it', onConfirm = null }) {
+    const existing = document.getElementById('app-popup-modal');
+    if (existing) existing.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'app-popup-modal';
+    overlay.className = 'app-popup-overlay';
+    overlay.innerHTML = `
+        <div class="app-popup-card" role="dialog" aria-modal="true">
+            <div class="app-popup-icon">${icon}</div>
+            <h3 class="app-popup-title">${escapeNavHtml(title)}</h3>
+            <p class="app-popup-message">${escapeNavHtml(message)}</p>
+            <div class="app-popup-actions">
+                <button type="button" class="btn-popup-confirm" id="btn-popup-ok">${escapeNavHtml(buttonText)}</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    const closePopup = () => {
+        overlay.remove();
+        if (typeof onConfirm === 'function') onConfirm();
+    };
+
+    overlay.querySelector('#btn-popup-ok').addEventListener('click', closePopup);
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closePopup();
+    });
+}
+window.showAlertModal = showAlertModal;
+
+function showConfirmModal({ icon = '🗑️', title = 'Confirm Action', message = '', confirmText = 'Confirm', cancelText = 'Cancel', isDestructive = false, onConfirm = null, onCancel = null }) {
+    const existing = document.getElementById('app-popup-modal');
+    if (existing) existing.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'app-popup-modal';
+    overlay.className = 'app-popup-overlay';
+    overlay.innerHTML = `
+        <div class="app-popup-card" role="dialog" aria-modal="true">
+            <div class="app-popup-icon ${isDestructive ? 'destructive' : ''}">${icon}</div>
+            <h3 class="app-popup-title">${escapeNavHtml(title)}</h3>
+            <p class="app-popup-message">${escapeNavHtml(message)}</p>
+            <div class="app-popup-actions">
+                <button type="button" class="btn-popup-cancel" id="btn-popup-cancel">${escapeNavHtml(cancelText)}</button>
+                <button type="button" class="btn-popup-confirm ${isDestructive ? 'destructive' : ''}" id="btn-popup-confirm">${escapeNavHtml(confirmText)}</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    overlay.querySelector('#btn-popup-cancel').addEventListener('click', () => {
+        overlay.remove();
+        if (typeof onCancel === 'function') onCancel();
+    });
+
+    overlay.querySelector('#btn-popup-confirm').addEventListener('click', () => {
+        overlay.remove();
+        if (typeof onConfirm === 'function') onConfirm();
+    });
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.remove();
+            if (typeof onCancel === 'function') onCancel();
+        }
+    });
+}
+window.showConfirmModal = showConfirmModal;
+
 function renderThemeToggle() {
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     return `<button class="theme-toggle" id="theme-toggle" title="Toggle rustic dark mode" aria-label="Toggle theme">${isDark ? '☀️' : '🌙'}</button>`;

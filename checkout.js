@@ -54,7 +54,23 @@ function removeItem(productKey) {
 }
 
 function clearEntireCart() {
-    if (confirm('Are you sure you want to remove all items from your order?')) {
+    if (typeof window.showConfirmModal === 'function') {
+        window.showConfirmModal({
+            icon: '🗑️',
+            title: 'Clear Entire Order?',
+            message: 'Are you sure you want to remove all items from your order? This will reset your cart.',
+            confirmText: 'Yes, Clear Cart',
+            cancelText: 'Keep Items',
+            isDestructive: true,
+            onConfirm: () => {
+                localStorage.removeItem('farmconnect-cart');
+                if (typeof window.updateCartBadge === 'function') {
+                    window.updateCartBadge();
+                }
+                renderOrderSummary();
+            }
+        });
+    } else {
         localStorage.removeItem('farmconnect-cart');
         if (typeof window.updateCartBadge === 'function') {
             window.updateCartBadge();
@@ -156,6 +172,14 @@ async function redirectToSecurePayment() {
 
     if (!buyerName || !buyerEmail || !deliveryLocation) {
         showStatus('Please complete your buyer name, email, and delivery destination.', true);
+        if (typeof window.showAlertModal === 'function') {
+            window.showAlertModal({
+                icon: '📋',
+                title: 'Order Details Required',
+                message: 'Please provide your Full Name, Email Address, and Delivery Destination before proceeding to payment.',
+                buttonText: 'Complete Details'
+            });
+        }
         return;
     }
 

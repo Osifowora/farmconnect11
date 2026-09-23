@@ -29,8 +29,17 @@ document.getElementById('upload-form').addEventListener('submit', function(e) {
 
     const user = window.fbAuth.currentUser;
     if (!user) {
-        alert('Please sign in to list produce.');
-        window.location.href = 'auth.html?next=farmer.html';
+        if (typeof window.showAlertModal === 'function') {
+            window.showAlertModal({
+                icon: '🔒',
+                title: 'Sign In Required',
+                message: 'Please sign in or register to list your produce harvests.',
+                buttonText: 'Sign In',
+                onConfirm: () => { window.location.href = 'auth.html?next=farmer.html'; }
+            });
+        } else {
+            window.location.href = 'auth.html?next=farmer.html';
+        }
         return;
     }
 
@@ -42,9 +51,16 @@ document.getElementById('upload-form').addEventListener('submit', function(e) {
     const formattedPhone = formatPhoneForWhatsApp(rawPhone);
 
     if (formattedPhone.length < 11) {
-        alert("Please enter a valid phone number.");
+        if (typeof window.showAlertModal === 'function') {
+            window.showAlertModal({
+                icon: '📱',
+                title: 'Invalid Phone Number',
+                message: 'Please enter a valid Nigerian WhatsApp phone number (e.g. 08012345678) so buyers can reach you directly.',
+                buttonText: 'Check Number'
+            });
+        }
         submitBtn.disabled = false;
-        submitBtn.innerText = "List Produce";
+        submitBtn.innerText = "🌱 Publish Harvest Listing";
         return;
     }
 

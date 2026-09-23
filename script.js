@@ -333,7 +333,15 @@ function submitReview(farmerId, farmerName) {
     const user = window.fbAuth?.currentUser;
     const profile = window.currentUserProfile;
     if (!user || !profile) {
-        alert('Please sign in to leave a review.');
+        if (typeof window.showAlertModal === 'function') {
+            window.showAlertModal({
+                icon: '🔒',
+                title: 'Sign In Required',
+                message: 'Please sign in to leave a verified review for this farmer.',
+                buttonText: 'Sign In',
+                onConfirm: () => { window.location.href = 'auth.html?next=index.html'; }
+            });
+        }
         return;
     }
 
@@ -342,7 +350,14 @@ function submitReview(farmerId, farmerName) {
     const comment = document.getElementById('review-comment').value.trim();
 
     if (!rating || rating < 1) {
-        alert('Please select a star rating between 1 and 5.');
+        if (typeof window.showAlertModal === 'function') {
+            window.showAlertModal({
+                icon: '⭐',
+                title: 'Rating Required',
+                message: 'Please select a star rating between 1 and 5 stars.',
+                buttonText: 'Select Rating'
+            });
+        }
         return;
     }
 
@@ -362,7 +377,14 @@ function submitReview(farmerId, farmerName) {
         // success - snapshot updates modal
     }).catch(err => {
         console.error('Review error:', err);
-        alert('Could not submit review. Please try again.');
+        if (typeof window.showAlertModal === 'function') {
+            window.showAlertModal({
+                icon: '⚠️',
+                title: 'Submission Error',
+                message: 'Could not submit your review. Please check your connection and try again.',
+                buttonText: 'Close'
+            });
+        }
         submitBtn.disabled = false;
         submitBtn.innerText = "Submit Review";
     });
