@@ -201,3 +201,55 @@ window.fbAuth.onAuthStateChanged(async (user) => {
         detail: { user, profile: window.currentUserProfile }
     }));
 });
+
+/* ===== Mobile Navigation Drawer Logic ===== */
+function initMobileMenu() {
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navMenu = document.getElementById('nav-menu') || document.querySelector('.nav-menu');
+    if (!hamburgerBtn || !navMenu) return;
+
+    hamburgerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = navMenu.classList.toggle('open');
+        hamburgerBtn.classList.toggle('active', isOpen);
+        hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    navMenu.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('open');
+            hamburgerBtn.classList.remove('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+            navMenu.classList.remove('open');
+            hamburgerBtn.classList.remove('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('open')) {
+            navMenu.classList.remove('open');
+            hamburgerBtn.classList.remove('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && navMenu.classList.contains('open')) {
+            navMenu.classList.remove('open');
+            hamburgerBtn.classList.remove('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+} else {
+    initMobileMenu();
+}

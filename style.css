@@ -320,6 +320,72 @@ img {
 }
 
 /* ==========================================================================
+   🌿 Mobile Hamburger Button & Navigation Drawer
+   ========================================================================== */
+
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-warm);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: var(--shadow-sm);
+    z-index: 1001;
+    -webkit-tap-highlight-color: transparent;
+}
+
+[data-theme="dark"] .hamburger-btn {
+    background: var(--bg-card);
+    border-color: var(--border-warm);
+}
+
+.hamburger-btn:hover {
+    border-color: var(--primary-olive);
+    background: var(--bg-sage-soft);
+    transform: scale(1.04);
+}
+
+.hamburger-btn:active {
+    transform: scale(0.96);
+}
+
+.hamburger-btn .bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: var(--text-heading);
+    border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, width 0.2s ease;
+}
+
+/* Active Morph to ✕ */
+.hamburger-btn.active {
+    background: var(--bg-sage-soft);
+    border-color: var(--accent-terracotta);
+}
+
+.hamburger-btn.active .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.active .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger-btn.active .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ==========================================================================
    🌿 Torn Paper SVG Dividers (Rustic Organic Transitions)
    ========================================================================== */
 
@@ -2121,15 +2187,77 @@ html, body {
 @media (max-width: 768px) {
     .navbar {
         padding: 12px 4%;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
     }
     .logo {
         font-size: 22px;
     }
+    .hamburger-btn {
+        display: flex;
+    }
     .nav-menu {
-        display: none; /* Hide non-essential desktop links to keep mobile header clean */
+        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: rgba(247, 244, 236, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 2px solid var(--border-warm);
+        box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.16);
+        padding: 18px 5% 22px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-12px);
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease;
+        z-index: 999;
+    }
+    [data-theme="dark"] .nav-menu {
+        background: rgba(18, 25, 19, 0.98);
+        box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.6);
+        border-bottom-color: var(--border-warm);
+    }
+    .nav-menu.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    .nav-menu li {
+        width: 100%;
+        list-style: none;
+    }
+    .nav-menu .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 18px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-heading);
+        border-radius: var(--radius-md);
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        transition: all 0.2s ease;
+    }
+    .nav-menu .nav-link:hover,
+    .nav-menu .nav-link:active {
+        background: var(--bg-sage-soft);
+        color: var(--accent-terracotta);
+        border-color: var(--primary-olive);
+        transform: translateX(4px);
     }
     .nav-actions {
         gap: 10px;
+        margin-left: auto;
     }
     .btn-nav-primary {
         padding: 8px 16px;

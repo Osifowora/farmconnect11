@@ -11,17 +11,23 @@
 </head>
 <body>
     <!-- Top Navigation Bar -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <a href="index.html" class="nav-brand">
             <span class="logo"><span class="logo-leaf">🌿</span> FarmConnect</span>
         </a>
 
-        <ul class="nav-menu">
+        <ul class="nav-menu" id="nav-menu">
             <li><a href="index.html#marketplace" class="nav-link">Marketplace</a></li>
             <li><a href="index.html#why-direct" class="nav-link">Why Direct</a></li>
         </ul>
 
         <div class="nav-actions" id="nav-auth-area"></div>
+
+        <button type="button" class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
     </nav>
 
     <main class="checkout-shell">
