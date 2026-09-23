@@ -385,6 +385,10 @@ img {
     transform: translateY(-7px) rotate(-45deg);
 }
 
+.nav-mobile-item {
+    display: none;
+}
+
 /* ==========================================================================
    🌿 Torn Paper SVG Dividers (Rustic Organic Transitions)
    ========================================================================== */
@@ -2183,7 +2187,11 @@ html, body {
     }
 }
 
-/* Tablets, Pads & Medium Devices (<= 768px) */
+/* ==========================================================================
+   🌿 Comprehensive Responsive Media Queries
+   ========================================================================== */
+
+/* Tablets, iPads & Medium Devices (<= 768px) */
 @media (max-width: 768px) {
     .navbar {
         padding: 12px 4%;
@@ -2192,10 +2200,36 @@ html, body {
         z-index: 1000;
     }
     .logo {
-        font-size: 22px;
+        font-size: 20px;
+    }
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+        margin-right: 8px;
+    }
+    /* Hide wide desktop buttons from the crowded top header */
+    .nav-actions .btn-nav-primary,
+    .nav-actions .btn-nav-outline,
+    .nav-actions .nav-user,
+    .nav-actions .nav-signout {
+        display: none !important;
+    }
+    .cart-badge-btn {
+        padding: 7px 12px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    .theme-toggle {
+        padding: 5px 8px;
+        font-size: 16px !important;
     }
     .hamburger-btn {
         display: flex;
+    }
+    .nav-mobile-item {
+        display: block;
     }
     .nav-menu {
         display: flex;
@@ -2204,18 +2238,20 @@ html, body {
         left: 0;
         right: 0;
         width: 100%;
+        max-height: calc(100vh - 65px);
+        overflow-y: auto;
         background: rgba(247, 244, 236, 0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border-bottom: 2px solid var(--border-warm);
         box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.16);
-        padding: 18px 5% 22px;
+        padding: 16px 5% 22px;
         flex-direction: column;
         align-items: stretch;
         gap: 8px;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(-12px);
+        transform: translateY(-10px);
         pointer-events: none;
         transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease;
         z-index: 999;
@@ -2238,7 +2274,7 @@ html, body {
     .nav-menu .nav-link {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        gap: 10px;
         padding: 13px 18px;
         font-size: 15px;
         font-weight: 600;
@@ -2255,21 +2291,41 @@ html, body {
         border-color: var(--primary-olive);
         transform: translateX(4px);
     }
-    .nav-actions {
-        gap: 10px;
-        margin-left: auto;
+    .nav-link-highlight {
+        background: var(--accent-terracotta) !important;
+        color: #ffffff !important;
+        border-color: var(--accent-terracotta) !important;
     }
-    .btn-nav-primary {
-        padding: 8px 16px;
-        font-size: 13px;
+    .nav-link-highlight:hover {
+        background: var(--accent-terracotta-hover) !important;
+        color: #ffffff !important;
     }
-    .cart-badge-btn {
-        padding: 7px 12px;
+    .nav-mobile-user-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 18px;
+        border-radius: var(--radius-md);
+        background: var(--bg-sage-soft);
+        border: 1px solid var(--border-sage);
+    }
+    .nav-mobile-user-name {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--text-heading);
+    }
+    .nav-mobile-signout {
+        color: #dc2626 !important;
         font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 4px 8px;
     }
     .hero-editorial {
         min-height: auto;
-        padding: 60px 4% 80px;
+        padding: 55px 4% 75px;
     }
     .hero-title {
         font-size: clamp(2rem, 6.5vw, 2.8rem);
@@ -2294,13 +2350,13 @@ html, body {
         font-size: 15px;
     }
     .hero-stats {
-        gap: 20px;
+        gap: 16px;
         margin-top: 36px;
         padding-top: 24px;
     }
     .hero-stat-item {
-        flex: 1 1 30%;
-        min-width: 90px;
+        flex: 1 1 28%;
+        min-width: 85px;
     }
     .hero-stat-number {
         font-size: 24px;
@@ -2314,11 +2370,26 @@ html, body {
     .section-pillars {
         padding: 50px 4% 60px;
     }
+    .pillars-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
     .section-story {
         padding: 60px 4% 70px;
     }
+    .story-container {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+    .story-img {
+        height: 320px;
+    }
     .section-farmers-spotlight {
         padding: 50px 4% 70px;
+    }
+    .farmers-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 18px;
     }
     .marketplace-section {
         padding: 50px 4% 70px;
@@ -2337,7 +2408,7 @@ html, body {
         width: 100%;
     }
     .produce-grid {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 20px;
     }
     .form-container {
@@ -2376,35 +2447,55 @@ html, body {
         padding: 10px 3.5%;
     }
     .logo {
-        font-size: 20px;
+        font-size: 19px;
+        gap: 6px;
     }
-    .nav-user {
-        display: none; /* Keep header compact on small screens */
+    .nav-actions {
+        gap: 6px;
+        margin-right: 6px;
+    }
+    .cart-badge-btn {
+        padding: 6px 9px;
+        font-size: 12px;
+    }
+    .theme-toggle {
+        padding: 4px 6px;
+        font-size: 15px !important;
+    }
+    .hamburger-btn {
+        width: 36px;
+        height: 36px;
+        padding: 6px;
+    }
+    .hamburger-btn .bar {
+        width: 18px;
     }
     .hero-editorial {
-        padding: 50px 3.5% 65px;
+        padding: 45px 3.5% 60px;
     }
     .hero-badge {
         font-size: 11px;
         padding: 6px 14px;
+        margin-bottom: 18px;
     }
     .hero-title {
-        font-size: 2.1rem;
+        font-size: 2rem;
     }
     .hero-description {
         font-size: 14px;
         line-height: 1.55;
+        margin-bottom: 28px;
     }
     .hero-stats {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        gap: 14px;
     }
     .hero-stat-item:last-child {
         grid-column: 1 / -1;
     }
     .story-img {
-        height: 260px;
+        height: 240px;
     }
     .story-badge-floating {
         position: static;
@@ -2413,14 +2504,15 @@ html, body {
         justify-content: center;
     }
     .story-title {
-        font-size: 1.75rem;
+        font-size: 1.7rem;
     }
     .story-feature-item {
         font-size: 14px;
     }
     .farmers-grid {
         grid-template-columns: 1fr;
-        max-width: 320px;
+        max-width: 300px;
+        margin: 0 auto;
     }
     .produce-grid {
         grid-template-columns: 1fr;
@@ -2440,30 +2532,32 @@ html, body {
         font-size: 14px;
     }
     .checkout-shell {
-        margin: 20px auto;
-        padding: 0 12px;
+        margin: 16px auto;
+        padding: 0 10px;
     }
     .checkout-panel,
     .checkout-summary {
-        padding: 22px 16px;
+        padding: 20px 14px;
     }
     .checkout-item {
         gap: 10px;
     }
     .checkout-thumb {
-        width: 52px;
-        height: 52px;
+        width: 48px;
+        height: 48px;
     }
     .checkout-meta h4 {
-        font-size: 15px;
+        font-size: 14px;
     }
     .checkout-price {
-        font-size: 16px;
+        font-size: 15px;
     }
     .modal-content,
     .app-popup-card {
-        padding: 24px 18px 20px;
+        padding: 22px 16px 18px;
         border-radius: var(--radius-lg);
+        width: 94%;
+        max-width: 400px;
     }
     .app-popup-actions {
         flex-direction: column-reverse;
@@ -2479,18 +2573,31 @@ html, body {
 /* Very Small Mobile Phones (<= 360px) */
 @media (max-width: 360px) {
     .logo {
-        font-size: 18px;
+        font-size: 17px;
     }
-    .btn-nav-primary {
-        padding: 7px 12px;
-        font-size: 12px;
+    .logo-leaf {
+        font-size: 16px;
     }
     .cart-badge-btn {
-        padding: 6px 10px;
-        font-size: 12px;
+        padding: 5px 8px;
+        font-size: 11px;
+        gap: 4px;
+    }
+    .theme-toggle {
+        padding: 4px 5px;
+        font-size: 13px !important;
+    }
+    .hamburger-btn {
+        width: 34px;
+        height: 34px;
+        padding: 5px;
     }
     .hero-title {
-        font-size: 1.85rem;
+        font-size: 1.75rem;
+    }
+    .hero-badge {
+        font-size: 10px;
+        padding: 5px 10px;
     }
 }
 

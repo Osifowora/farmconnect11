@@ -145,33 +145,54 @@ function attachThemeToggle() {
 
 function renderSignedInNav(profile) {
     const navArea = document.getElementById('nav-auth-area');
-    if (!navArea) return;
-    const isOnFarmerPage = window.location.pathname.includes('farmer.html');
-    navArea.innerHTML = `
-        ${renderCartBadge()}
-        ${isOnFarmerPage ? '' : '<a href="farmer.html" class="btn-nav-primary">🌿 List Produce</a>'}
-        <span class="nav-user">👋 ${escapeNavHtml(profile.name)}</span>
-        <button class="btn-text nav-signout" id="nav-signout">Sign Out</button>
-        ${renderThemeToggle()}
-    `;
-    document.getElementById('nav-signout').addEventListener('click', () => {
-        window.fbAuth.signOut().then(() => window.location.href = 'index.html');
-    });
-    attachThemeToggle();
+    if (navArea) {
+        const isOnFarmerPage = window.location.pathname.includes('farmer.html');
+        navArea.innerHTML = `
+            ${renderCartBadge()}
+            ${isOnFarmerPage ? '' : '<a href="farmer.html" class="btn-nav-primary">🌿 List Produce</a>'}
+            <span class="nav-user">👋 ${escapeNavHtml(profile.name)}</span>
+            <button class="btn-text nav-signout" id="nav-signout">Sign Out</button>
+            ${renderThemeToggle()}
+        `;
+        document.getElementById('nav-signout')?.addEventListener('click', () => {
+            window.fbAuth.signOut().then(() => window.location.href = 'index.html');
+        });
+        attachThemeToggle();
+    }
+
+    const mobileAuth = document.getElementById('nav-menu-auth-item');
+    if (mobileAuth) {
+        mobileAuth.innerHTML = `
+            <div class="nav-mobile-user-card">
+                <span class="nav-mobile-user-name">👋 ${escapeNavHtml(profile.name)}</span>
+                <button type="button" class="btn-text nav-mobile-signout" id="nav-mobile-signout">Sign Out</button>
+            </div>
+        `;
+        document.getElementById('nav-mobile-signout')?.addEventListener('click', () => {
+            window.fbAuth.signOut().then(() => window.location.href = 'index.html');
+        });
+    }
 }
 
 function renderSignedOutNav() {
     const navArea = document.getElementById('nav-auth-area');
-    if (!navArea) return;
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const isOnFarmerPage = window.location.pathname.includes('farmer.html');
-    navArea.innerHTML = `
-        ${renderCartBadge()}
-        ${isOnFarmerPage ? '' : '<a href="farmer.html" class="btn-nav-primary">🌿 List Produce</a>'}
-        <a href="auth.html?next=${encodeURIComponent(currentPage)}" class="btn-nav-outline">Sign In</a>
-        ${renderThemeToggle()}
-    `;
-    attachThemeToggle();
+    if (navArea) {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const isOnFarmerPage = window.location.pathname.includes('farmer.html');
+        navArea.innerHTML = `
+            ${renderCartBadge()}
+            ${isOnFarmerPage ? '' : '<a href="farmer.html" class="btn-nav-primary">🌿 List Produce</a>'}
+            <a href="auth.html?next=${encodeURIComponent(currentPage)}" class="btn-nav-outline">Sign In</a>
+            ${renderThemeToggle()}
+        `;
+        attachThemeToggle();
+    }
+
+    const mobileAuth = document.getElementById('nav-menu-auth-item');
+    if (mobileAuth) {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        mobileAuth.innerHTML = `<a href="auth.html?next=${encodeURIComponent(currentPage)}" class="nav-link"><span>👤</span> Sign In / Account</a>`;
+    }
 }
 
 window.fbAuth.onAuthStateChanged(async (user) => {
