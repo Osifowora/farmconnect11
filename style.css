@@ -1547,10 +1547,49 @@ input:focus, select:focus, textarea:focus {
     padding: 36px;
 }
 
-.checkout-summary {
-    background: var(--bg-sage-tint);
-    border-left: 1px solid var(--border-subtle);
-    padding: 36px;
+.checkout-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.checkout-summary-header h3 {
+    font-size: 20px;
+    color: var(--text-heading);
+    margin: 0;
+}
+
+.btn-clear-cart {
+    background: transparent;
+    border: 1px solid var(--border-warm);
+    color: #dc2626;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-clear-cart:hover {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    transform: translateY(-1px);
+}
+
+[data-theme="dark"] .btn-clear-cart {
+    border-color: #451a1a;
+    color: #f87171;
+}
+
+[data-theme="dark"] .btn-clear-cart:hover {
+    background: #2b1111;
 }
 
 .checkout-item {
@@ -1562,33 +1601,138 @@ input:focus, select:focus, textarea:focus {
 }
 
 .checkout-thumb {
-    width: 68px;
-    height: 68px;
+    width: 64px;
+    height: 64px;
     border-radius: var(--radius-md);
     object-fit: cover;
+    flex-shrink: 0;
+    background: var(--bg-warm-sand);
+}
+
+.checkout-meta {
+    flex-grow: 1;
+    min-width: 0;
 }
 
 .checkout-meta h4 {
-    font-size: 17px;
-    margin-bottom: 3px;
+    font-size: 16px;
+    margin-bottom: 2px;
+    color: var(--text-heading);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.checkout-meta p {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.cart-qty-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-warm);
+    border-radius: var(--radius-full);
+    padding: 2px 6px;
+}
+
+.btn-qty {
+    background: var(--bg-sage-soft);
+    border: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-heading);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.btn-qty:hover {
+    background: var(--primary-forest);
+    color: white;
+}
+
+.cart-qty-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-heading);
+    min-width: 18px;
+    text-align: center;
+}
+
+.checkout-item-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
 }
 
 .checkout-price {
-    margin-left: auto;
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: 18px;
+    font-size: 17px;
     color: var(--accent-terracotta);
+}
+
+.btn-remove-item {
+    background: transparent;
+    border: none;
+    font-size: 15px;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.btn-remove-item:hover {
+    color: #dc2626;
+    transform: scale(1.15);
+}
+
+.cart-empty-state {
+    text-align: center;
+    padding: 36px 16px;
+}
+
+.cart-empty-icon {
+    font-size: 42px;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.6;
+}
+
+.cart-empty-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 6px;
+}
+
+.cart-empty-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
 }
 
 .summary-total {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 20px;
-    margin-top: 20px;
+    padding-top: 18px;
+    margin-top: 18px;
     border-top: 2px solid var(--border-warm);
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 800;
     font-family: var(--font-display);
 }
