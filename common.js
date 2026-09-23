@@ -26,9 +26,35 @@ function escapeNavHtml(text) {
     return div.innerHTML;
 }
 
+function getCartItemCount() {
+    try {
+        const cart = JSON.parse(localStorage.getItem('farmconnect-cart') || '[]');
+        return cart.reduce((sum, item) => sum + (Number(item.quantity) || 1), 0);
+    } catch (e) {
+        return 0;
+    }
+}
+
+function renderCartBadge() {
+    const count = getCartItemCount();
+    return `
+        <a href="checkout.html" class="cart-badge-btn" id="nav-cart-btn" title="View Order & Checkout">
+            🛒 Cart <span class="cart-count" id="nav-cart-count">${count}</span>
+        </a>
+    `;
+}
+
+function updateCartBadge() {
+    const countEl = document.getElementById('nav-cart-count');
+    if (countEl) {
+        countEl.textContent = getCartItemCount();
+    }
+}
+window.updateCartBadge = updateCartBadge;
+
 function renderThemeToggle() {
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    return `<button class="btn-text theme-toggle" id="theme-toggle" title="Toggle dark mode">${isDark ? '☀️' : '🌙'}</button>`;
+    return `<button class="theme-toggle" id="theme-toggle" title="Toggle rustic dark mode" aria-label="Toggle theme">${isDark ? '☀️' : '🌙'}</button>`;
 }
 
 function attachThemeToggle() {
@@ -48,7 +74,8 @@ function renderSignedInNav(profile) {
     if (!navArea) return;
     const isOnFarmerPage = window.location.pathname.includes('farmer.html');
     navArea.innerHTML = `
-        ${isOnFarmerPage ? '' : '<a href="farmer.html" class="btn-text" style="text-decoration:none;">List Produce</a>'}
+        ${renderCartBadge()}
+        ${isOnFarmerPage ? '' : '<a href="farmer.html" class="btn-nav-primary">🌿 List Produce</a>'}
         <span class="nav-user">👋 ${escapeNavHtml(profile.name)}</span>
         <button class="btn-text nav-signout" id="nav-signout">Sign Out</button>
         ${renderThemeToggle()}
@@ -63,8 +90,11 @@ function renderSignedOutNav() {
     const navArea = document.getElementById('nav-auth-area');
     if (!navArea) return;
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const isOnFarmerPage = window.location.pathname.includes('farmer.html');
     navArea.innerHTML = `
-        <a href="auth.html?next=${encodeURIComponent(currentPage)}" class="btn-text" style="text-decoration:none;">Sign In</a>
+        ${renderCartBadge()}
+        ${isOnFarmerPage ? '' : '<a href="farmer.html" class="btn-nav-primary">🌿 List Produce</a>'}
+        <a href="auth.html?next=${encodeURIComponent(currentPage)}" class="btn-nav-outline">Sign In</a>
         ${renderThemeToggle()}
     `;
     attachThemeToggle();

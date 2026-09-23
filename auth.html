@@ -3,30 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sign in to FarmConnect to list your produce or leave reviews for farmers.">
+    <meta name="description" content="Sign in to FarmConnect to list your produce or leave verified reviews for farmers.">
     <meta property="og:title" content="Sign In | FarmConnect">
     <meta property="og:description" content="Sign in to list produce or connect with local farmers on FarmConnect.">
-    <meta name="theme-color" content="#10b981">
+    <meta name="theme-color" content="#223725">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <title>Sign In | FarmConnect</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Top Navigation Bar -->
     <nav class="navbar">
-        <div class="logo">🌿 FarmConnect</div>
-        <div class="nav-links">
-            <a href="index.html" class="btn-text" style="text-decoration: none;">Back to Market</a>
+        <a href="index.html" class="nav-brand">
+            <span class="logo"><span class="logo-leaf">🌿</span> FarmConnect</span>
+        </a>
+        <div class="nav-actions">
+            <a href="index.html" class="btn-nav-outline">← Back to Marketplace</a>
         </div>
     </nav>
 
     <div class="form-container">
         <div class="form-card auth-card">
-            <h2 id="auth-title">Welcome to FarmConnect</h2>
-            <p class="auth-subtitle">Sign in to list produce or leave reviews</p>
+            <div class="form-header">
+                <span class="section-subtitle">Account Portal</span>
+                <h2 id="auth-title" class="section-title" style="font-size: 26px; margin-bottom: 6px;">Welcome to FarmConnect</h2>
+                <p class="auth-subtitle" style="font-size: 14px; color: var(--text-muted);">Sign in to list fresh harvests or leave reviews</p>
+            </div>
 
             <div class="auth-method-tabs">
-                <button class="auth-tab active" data-method="phone" type="button">📱 Phone</button>
-                <button class="auth-tab" data-method="email" type="button">✉️ Email</button>
+                <button class="auth-tab active" data-method="phone" type="button">📱 Phone Number</button>
+                <button class="auth-tab" data-method="email" type="button">✉️ Email & Password</button>
             </div>
 
             <!-- Phone flow -->
@@ -36,13 +42,13 @@
                         <label for="phone-input">Phone Number</label>
                         <input type="tel" id="phone-input" placeholder="08012345678 or +234 801 234 5678">
                     </div>
-                    <button class="btn-submit" id="send-code-btn" type="button">Send Verification Code</button>
+                    <button class="btn-submit" id="send-code-btn" type="button">Send SMS Verification Code</button>
                 </div>
                 <div id="phone-step-2" style="display:none;">
                     <div class="input-group">
                         <label for="code-input">Verification Code</label>
                         <input type="text" id="code-input" placeholder="6-digit code" maxlength="6" inputmode="numeric">
-                        <p class="form-hint">Sent to <span id="phone-display"></span> · <a href="#" id="change-phone">change</a></p>
+                        <p class="form-hint" style="color:var(--text-muted); font-size:13px; margin-top:6px;">Sent to <span id="phone-display" style="font-weight:700; color:var(--text-heading);"></span> · <a href="#" id="change-phone" style="color:var(--accent-terracotta);">change</a></p>
                     </div>
                     <button class="btn-submit" id="verify-code-btn" type="button">Verify & Sign In</button>
                 </div>
@@ -51,7 +57,7 @@
             <!-- Email flow -->
             <div class="auth-flow" id="email-flow" style="display:none;">
                 <div class="input-group">
-                    <label for="email-input">Email</label>
+                    <label for="email-input">Email Address</label>
                     <input type="email" id="email-input" placeholder="you@example.com">
                 </div>
                 <div class="input-group">
@@ -59,34 +65,66 @@
                     <input type="password" id="password-input" placeholder="At least 6 characters">
                 </div>
                 <div class="input-group" id="email-name-group" style="display:none;">
-                    <label for="email-name">Full Name</label>
-                    <input type="text" id="email-name" placeholder="Your name or business">
+                    <label for="email-name">Full Name or Farm Name</label>
+                    <input type="text" id="email-name" placeholder="Your full name or farm enterprise">
                 </div>
                 <button class="btn-submit" id="email-submit-btn" type="button">Sign In</button>
                 <p class="auth-toggle">
-                    <a href="#" id="forgot-password-link">Forgot password?</a>
+                    <a href="#" id="forgot-password-link" style="color:var(--accent-terracotta); font-size:13px;">Forgot password?</a>
                 </p>
-                <p class="auth-toggle">
+                <p class="auth-toggle" style="margin-top:10px; font-size:14px;">
                     <span id="auth-toggle-text">New here?</span>
-                    <a href="#" id="auth-toggle-link">Create an account</a>
+                    <a href="#" id="auth-toggle-link" style="color:var(--primary-olive); font-weight:700;">Create an account</a>
                 </p>
             </div>
 
             <!-- Name prompt for new phone users -->
             <div class="auth-flow" id="name-flow" style="display:none;">
                 <div class="input-group">
-                    <label for="profile-name">What should we call you?</label>
-                    <input type="text" id="profile-name" placeholder="Your name or business">
-                    <p class="form-hint">This appears on your listings and reviews.</p>
+                    <label for="profile-name">What is your name or Farm Name?</label>
+                    <input type="text" id="profile-name" placeholder="Your name or farm enterprise">
+                    <p class="form-hint" style="color:var(--text-muted); font-size:13px; margin-top:6px;">This appears on your produce listings and verified reviews.</p>
                 </div>
-                <button class="btn-submit" id="save-profile-btn" type="button">Continue</button>
+                <button class="btn-submit" id="save-profile-btn" type="button">Complete Setup & Continue</button>
             </div>
 
-            <div id="auth-error" class="auth-error" style="display:none;"></div>
+            <div id="auth-error" class="auth-error" style="display:none; margin-top:16px;"></div>
         </div>
     </div>
 
     <div id="recaptcha-container"></div>
+
+    <!-- Editorial Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">🌿 FarmConnect</span>
+                <p>Connecting Nigeria's agricultural growers and bulk buyers with transparency, fair prices, and direct community trust.</p>
+            </div>
+
+            <div class="footer-links-group">
+                <div class="footer-col">
+                    <h5>Marketplace</h5>
+                    <ul>
+                        <li><a href="index.html#marketplace">Browse All Produce</a></li>
+                        <li><a href="checkout.html">My Cart & Order</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>For Farmers</h5>
+                    <ul>
+                        <li><a href="farmer.html">List Your Harvest</a></li>
+                        <li><a href="auth.html">Farmer Sign In</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 FarmConnect Nigeria. Cultivating digital agriculture for all.</p>
+        </div>
+    </footer>
 
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -94,35 +132,17 @@
     <script src="common.js"></script>
     <script src="auth.js"></script>
 
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span class="footer-logo">🌿 FarmConnect</span>
-                <p>Connecting farmers and buyers across Nigeria. Fresh produce, fair prices, zero middlemen.</p>
-            </div>
-            <div class="footer-links">
-                <a href="index.html">Marketplace</a>
-                <a href="farmer.html">List Produce</a>
-                <a href="auth.html">Sign In</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 FarmConnect. All rights reserved.</p>
-        </div>
-    </footer>
-
     <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/69fb0698ad369b1c32e90137/1jnu93hpd';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/69fb0698ad369b1c32e90137/1jnu93hpd';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
 </body>
 </html>

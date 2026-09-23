@@ -3,86 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FarmConnect — Buy fresh bulk produce directly from local farmers. Vegetables, fruits, grains, and tubers at wholesale prices. Cut costs, reduce waste.">
-    <meta property="og:title" content="FarmConnect | Fresh Bulk Produce">
-    <meta property="og:description" content="Buy fresh bulk produce directly from local farmers. Vegetables, fruits, grains, and tubers at wholesale prices.">
+    <meta name="description" content="FarmConnect — Buy fresh bulk agricultural produce directly from verified Nigerian farmers. Vegetables, fruits, grains, and tubers at fair farm-gate prices.">
+    <meta property="og:title" content="FarmConnect | Farm to Table Fresh Harvests">
+    <meta property="og:description" content="Buy fresh bulk produce directly from local farmers across Nigeria. Transparent pricing, direct WhatsApp communication, and zero middlemen.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://farmconnect11.netlify.app">
-    <meta name="theme-color" content="#10b981">
+    <meta name="theme-color" content="#223725">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <title>FarmConnect | Fresh Bulk Produce</title>
+    <title>FarmConnect | Farm to Table Fresh Harvests</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">🌿 FarmConnect</div>
-        <div class="nav-links" id="nav-auth-area"></div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="nav-brand">
+            <span class="logo"><span class="logo-leaf">🌿</span> FarmConnect</span>
+        </a>
+
+        <ul class="nav-menu">
+            <li><a href="#marketplace" class="nav-link">Marketplace</a></li>
+            <li><a href="#why-direct" class="nav-link">Why Direct</a></li>
+            <li><a href="#story" class="nav-link">Our Story</a></li>
+            <li><a href="#farmers" class="nav-link">Meet Farmers</a></li>
+        </ul>
+
+        <div class="nav-actions" id="nav-auth-area">
+            <!-- Dynamically populated by common.js with Cart, Auth, and Theme buttons -->
+        </div>
     </nav>
-    <header class="hero">
-        <h1>Farm to Business, Direct.</h1>
-        <p>Buy fresh bulk produce directly from local farmers. Cut costs, reduce waste.</p>
+
+    <!-- Editorial Hero Section -->
+    <header class="hero-editorial" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🌾</span> 100% Direct Agricultural Marketplace
+            </div>
+            <h1 class="hero-title">
+                Farm to Table in <span class="highlight">Fresh Harvests</span>
+            </h1>
+            <p class="hero-description">
+                Connect directly with hardworking local farmers across Nigeria. Source the freshest vegetables, fruits, grains, and tubers at fair wholesale prices with zero middlemen.
+            </p>
+            <div class="hero-cta-group">
+                <a href="#marketplace" class="btn-hero-primary">
+                    <span>🌱</span> Explore Marketplace
+                </a>
+                <a href="farmer.html" class="btn-hero-secondary">
+                    <span>🚜</span> List Your Harvest
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="hero-stat-item">
+                    <div class="hero-stat-number">100%</div>
+                    <div class="hero-stat-label">Farm-Gate Direct</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="hero-stat-number">24–48 hrs</div>
+                    <div class="hero-stat-label">Harvest Freshness</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="hero-stat-number">0%</div>
+                    <div class="hero-stat-label">Middlemen Markups</div>
+                </div>
+            </div>
+        </div>
     </header>
-    <section class="controls-container">
-        <div class="category-tabs">
-            <button class="tab active" data-filter="all">All</button>
-            <button class="tab" data-filter="Vegetables">Vegetables</button>
-            <button class="tab" data-filter="Fruits">Fruits</button>
-            <button class="tab" data-filter="Grains">Grains</button>
-            <button class="tab" data-filter="Tubers">Tubers</button>
+
+    <!-- Torn Paper Divider: Hero -> Pillars (Sage) -->
+    <div class="torn-divider" aria-hidden="true">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path class="torn-to-sage" d="M0,0 C150,90 350,-40 500,80 C650,140 900,-20 1050,70 C1150,110 1200,40 1200,120 L0,120 Z"></path>
+        </svg>
+    </div>
+
+    <!-- 3-Pillar Value Proposition Section -->
+    <section class="section-pillars" id="why-direct">
+        <div class="section-header-center">
+            <span class="section-subtitle">How FarmConnect Works</span>
+            <h2 class="section-title">Cultivated with Care, Traded with Trust</h2>
+            <p class="section-desc">We bridge the gap between rural farming communities and bulk buyers, ensuring fair prices for growers and farm-fresh produce for businesses.</p>
         </div>
-        <div class="search-section">
-            <input type="text" id="search-bar" placeholder="Search rice, onions, or locations..." class="search-input">
+
+        <div class="pillars-grid">
+            <!-- Pillar 1 -->
+            <article class="pillar-card">
+                <div class="pillar-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=600&q=80" alt="Farmer picking fresh harvest" class="pillar-img" loading="lazy">
+                </div>
+                <div class="pillar-body">
+                    <h3 class="pillar-title">Direct Farm-Gate Sourcing</h3>
+                    <p class="pillar-text">Cut out multi-layer broker markups. Buy directly from farm gate at wholesale rates that protect your margins.</p>
+                </div>
+            </article>
+
+            <!-- Pillar 2 -->
+            <article class="pillar-card">
+                <div class="pillar-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&w=600&q=80" alt="Farmer smiling in crop field" class="pillar-img" loading="lazy">
+                </div>
+                <div class="pillar-body">
+                    <h3 class="pillar-title">Empowering Local Growers</h3>
+                    <p class="pillar-text">Smallholder farmers earn what they deserve with transparent pricing, instant WhatsApp connection, and community reviews.</p>
+                </div>
+            </article>
+
+            <!-- Pillar 3 -->
+            <article class="pillar-card">
+                <div class="pillar-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80" alt="Fresh fruits and vegetables crate" class="pillar-img" loading="lazy">
+                </div>
+                <div class="pillar-body">
+                    <h3 class="pillar-title">Wholesale & Bulk Supply</h3>
+                    <p class="pillar-text">Consistent, high-volume supply of tubers, grains, vegetables, and seasonal fruits for restaurants, grocers, and processors.</p>
+                </div>
+            </article>
         </div>
-      
     </section>
-    <main class="marketplace">
-        <div class="section-header">
-    <h2>Available Today in Lagos</h2>
-    <span class="live-indicator">● Live</span>
-    <select id="sort-select" class="sort-select">
-        <option value="newest">Newest first</option>
-        <option value="price-asc">Price: Low to High</option>
-        <option value="price-desc">Price: High to Low</option>
-    </select>
-</div>
-        <div class="produce-grid" id="produce-grid"></div>
+
+    <!-- Torn Paper Divider: Pillars -> Canvas -->
+    <div class="torn-divider" aria-hidden="true">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path class="torn-to-canvas" d="M0,0 C200,80 400,-30 600,60 C800,130 1000,-10 1200,70 L1200,120 L0,120 Z"></path>
+        </svg>
+    </div>
+
+    <!-- Story / Value Proposition Split Section -->
+    <section class="section-story" id="story">
+        <div class="story-container">
+            <div class="story-visual">
+                <div class="story-img-frame">
+                    <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=900&q=80" alt="Farmer holding fresh harvest" class="story-img" loading="lazy">
+                </div>
+                <div class="story-badge-floating">
+                    <span class="story-badge-icon">🌿</span>
+                    <div class="story-badge-text">
+                        <h5>100% Traceable</h5>
+                        <p>Direct from verified farms</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-content">
+                <span class="section-subtitle">Our Mission & Purpose</span>
+                <h2 class="story-title">Earn more. Harvest fresh for everyone.</h2>
+                <p class="story-paragraph">
+                    In Nigeria, up to 40% of agricultural produce is lost to post-harvest delays and fragmented distribution channels. FarmConnect empowers farmers to list their harvests in minutes while giving businesses instant direct access to top-quality crops.
+                </p>
+
+                <ul class="story-features-list">
+                    <li class="story-feature-item">
+                        <span class="story-check">✓</span>
+                        <span>Direct WhatsApp chat & negotiation with the grower</span>
+                    </li>
+                    <li class="story-feature-item">
+                        <span class="story-check">✓</span>
+                        <span>Verified buyer ratings and authentic farmer reputation</span>
+                    </li>
+                    <li class="story-feature-item">
+                        <span class="story-check">✓</span>
+                        <span>Transparent price per bag, crate, kg, or ton</span>
+                    </li>
+                </ul>
+
+                <a href="#marketplace" class="btn-hero-primary">
+                    <span>🌾</span> Browse Available Harvests
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Torn Paper Divider: Canvas -> Sand -->
+    <div class="torn-divider" aria-hidden="true">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path class="torn-to-sand" d="M0,0 C250,70 500,-20 750,80 C950,140 1100,10 1200,60 L1200,120 L0,120 Z"></path>
+        </svg>
+    </div>
+
+    <!-- Featured Farmers Spotlight Grid -->
+    <section class="section-farmers-spotlight" id="farmers">
+        <div class="section-header-center">
+            <span class="section-subtitle">Community of Growers</span>
+            <h2 class="section-title">Meet Our Verified Farmers</h2>
+            <p class="section-desc">Passionate agricultural entrepreneurs producing wholesome food across regional farming clusters.</p>
+        </div>
+
+        <div class="farmers-grid">
+            <!-- Farmer 1 -->
+            <div class="farmer-spotlight-card">
+                <div class="farmer-avatar-wrap">
+                    <img src="https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=400&q=80" alt="Adeola Folorunsho" class="farmer-avatar" loading="lazy">
+                </div>
+                <h4 class="farmer-spotlight-name">Adeola Folorunsho</h4>
+                <div class="farmer-spotlight-location">📍 Oyo State • Iseyin</div>
+                <p class="farmer-spotlight-crops">Specialty: Fresh Cassava, Yams & Plantains</p>
+            </div>
+
+            <!-- Farmer 2 -->
+            <div class="farmer-spotlight-card">
+                <div class="farmer-avatar-wrap">
+                    <img src="https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&w=400&q=80" alt="Musa Bello" class="farmer-avatar" loading="lazy">
+                </div>
+                <h4 class="farmer-spotlight-name">Musa Bello</h4>
+                <div class="farmer-spotlight-location">📍 Kano State • Bichi</div>
+                <p class="farmer-spotlight-crops">Specialty: Ripe Tomatoes, Bell Peppers & Onions</p>
+            </div>
+
+            <!-- Farmer 3 -->
+            <div class="farmer-spotlight-card">
+                <div class="farmer-avatar-wrap">
+                    <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=400&q=80" alt="Emeka Nnamdi" class="farmer-avatar" loading="lazy">
+                </div>
+                <h4 class="farmer-spotlight-name">Emeka Nnamdi</h4>
+                <div class="farmer-spotlight-location">📍 Ogun State • Sagamu</div>
+                <p class="farmer-spotlight-crops">Specialty: Sweet Potatoes, Leafy Greens & Cucumbers</p>
+            </div>
+
+            <!-- Farmer 4 -->
+            <div class="farmer-spotlight-card">
+                <div class="farmer-avatar-wrap">
+                    <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=400&q=80" alt="Fatima Abubakar" class="farmer-avatar" loading="lazy">
+                </div>
+                <h4 class="farmer-spotlight-name">Fatima Abubakar</h4>
+                <div class="farmer-spotlight-location">📍 Kaduna State • Zaria</div>
+                <p class="farmer-spotlight-crops">Specialty: Yellow Maize, Guinea Corn & Soybeans</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Torn Paper Divider: Sand -> Canvas -->
+    <div class="torn-divider" aria-hidden="true">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path class="torn-to-canvas" d="M0,0 C180,90 420,-30 650,70 C880,130 1080,-10 1200,60 L1200,120 L0,120 Z"></path>
+        </svg>
+    </div>
+
+    <!-- Live Dynamic Marketplace Section -->
+    <main class="marketplace-section" id="marketplace">
+        <div class="marketplace-container">
+            <div class="marketplace-header">
+                <div>
+                    <span class="live-badge">
+                        <span class="live-dot"></span> Live Marketplace
+                    </span>
+                    <h2 class="section-title" style="margin-top: 10px; margin-bottom: 4px;">Available Harvests Today</h2>
+                    <p class="section-desc">Browse real-time listings, contact growers, or add to your order.</p>
+                </div>
+            </div>
+
+            <!-- Sticky Controls Bar: Category Pills + Search + Sort -->
+            <div class="controls-container">
+                <div class="search-and-sort-row">
+                    <div class="search-wrap">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="search-bar" placeholder="Search tomatoes, cassava, grains, or farmer location..." class="search-input" aria-label="Search produce">
+                    </div>
+                    <select id="sort-select" class="sort-select" aria-label="Sort produce">
+                        <option value="newest">🕒 Newest Harvests</option>
+                        <option value="price-asc">💵 Price: Low to High</option>
+                        <option value="price-desc">💰 Price: High to Low</option>
+                    </select>
+                </div>
+
+                <div class="category-tabs">
+                    <button type="button" class="tab active" data-filter="all">🌾 All Produce</button>
+                    <button type="button" class="tab" data-filter="Vegetables">🥬 Vegetables</button>
+                    <button type="button" class="tab" data-filter="Fruits">🍉 Fruits</button>
+                    <button type="button" class="tab" data-filter="Grains">🌽 Grains</button>
+                    <button type="button" class="tab" data-filter="Tubers">🥔 Tubers</button>
+                </div>
+            </div>
+
+            <!-- Produce Card Grid (Dynamically Populated from Firestore) -->
+            <div class="produce-grid" id="produce-grid">
+                <!-- Skeleton Shimmers while loading -->
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+            </div>
+        </div>
     </main>
 
+    <!-- Editorial Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">🌿 FarmConnect</span>
+                <p>Connecting Nigeria's agricultural growers and bulk buyers with transparency, fair prices, and direct community trust.</p>
+            </div>
+
+            <div class="footer-links-group">
+                <div class="footer-col">
+                    <h5>Marketplace</h5>
+                    <ul>
+                        <li><a href="#marketplace">Browse All Produce</a></li>
+                        <li><a href="#marketplace">Vegetables & Greens</a></li>
+                        <li><a href="#marketplace">Grains & Tubers</a></li>
+                        <li><a href="checkout.html">My Cart & Order</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>For Farmers</h5>
+                    <ul>
+                        <li><a href="farmer.html">List Your Harvest</a></li>
+                        <li><a href="auth.html">Farmer Sign In</a></li>
+                        <li><a href="ROADMAP.md">Platform Roadmap</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Trust & Support</h5>
+                    <ul>
+                        <li><a href="#story">Why Direct Sourcing</a></li>
+                        <li><a href="#farmers">Farmer Directory</a></li>
+                        <li><a href="https://api.whatsapp.com/send?phone=2349025013517&text=Hello%20FarmConnect%20Support" target="_blank" rel="noopener noreferrer">WhatsApp Helpline</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 FarmConnect Nigeria. Cultivating digital agriculture for all.</p>
+            <p>Made with 🌿 for Nigerian smallholder farmers and food businesses.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="common.js"></script>
     <script src="script.js"></script>
 
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span class="footer-logo">🌿 FarmConnect</span>
-                <p>Connecting farmers and buyers across Nigeria. Fresh produce, fair prices, zero middlemen.</p>
-            </div>
-            <div class="footer-links">
-                <a href="index.html">Marketplace</a>
-                <a href="farmer.html">List Produce</a>
-                <a href="auth.html">Sign In</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 FarmConnect. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/69fb0698ad369b1c32e90137/1jnu93hpd';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+    <!-- Tawk.to Live Chat Integration -->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/69fb0698ad369b1c32e90137/1jnu93hpd';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
 </body>
 </html>

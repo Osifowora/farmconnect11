@@ -3,28 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Complete your FarmConnect order. Secure checkout for fresh bulk produce.">
-    <meta name="theme-color" content="#10b981">
+    <meta name="description" content="Complete your FarmConnect order. Secure checkout for fresh bulk agricultural produce.">
+    <meta name="theme-color" content="#223725">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <title>Secure Checkout | FarmConnect</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Top Navigation Bar -->
     <nav class="navbar">
-        <div class="logo">🌿 FarmConnect</div>
-        <div class="nav-links" id="nav-auth-area"></div>
+        <a href="index.html" class="nav-brand">
+            <span class="logo"><span class="logo-leaf">🌿</span> FarmConnect</span>
+        </a>
+
+        <ul class="nav-menu">
+            <li><a href="index.html#marketplace" class="nav-link">Marketplace</a></li>
+            <li><a href="index.html#why-direct" class="nav-link">Why Direct</a></li>
+        </ul>
+
+        <div class="nav-actions" id="nav-auth-area"></div>
     </nav>
 
     <main class="checkout-shell">
         <div class="checkout-card">
             <div class="checkout-layout">
                 <section class="checkout-panel">
-                    <h2>Secure Checkout</h2>
-                    <p style="color:#6b7280; margin-top:10px; margin-bottom:24px;">Review your order before paying. This flow is set up for backend payment session creation before any real money is processed.</p>
+                    <span class="section-subtitle">Order Finalization</span>
+                    <h2 class="section-title" style="font-size: 28px; margin-bottom: 8px;">Secure Checkout</h2>
+                    <p style="color:var(--text-muted); font-size:14px; margin-bottom:24px;">Review your produce order details and specify your delivery location across Nigeria.</p>
 
                     <div class="input-group">
-                        <label for="buyer-name">Full Name</label>
-                        <input type="text" id="buyer-name" placeholder="Your full name" required>
+                        <label for="buyer-name">Buyer Full Name</label>
+                        <input type="text" id="buyer-name" placeholder="e.g. Adaobi Okonkwo" required>
                     </div>
 
                     <div class="input-group">
@@ -33,50 +43,71 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="delivery-location">Delivery Location</label>
-                        <input type="text" id="delivery-location" placeholder="Example: Lekki, Lagos" required>
+                        <label for="delivery-location">Delivery Destination / Warehouse</label>
+                        <input type="text" id="delivery-location" placeholder="e.g. 14 Admiralty Way, Lekki Phase 1, Lagos" required>
                     </div>
 
                     <div class="checkout-actions">
-                        <button type="button" class="checkout-cta" id="create-checkout-session">Create Payment Session</button>
-                        <button type="button" class="checkout-cta secondary" onclick="window.location.href='index.html'">Continue Shopping</button>
+                        <button type="button" class="btn-submit" id="create-checkout-session" style="margin-top:0;">🔒 Create Secure Payment Session</button>
+                        <button type="button" class="btn-nav-outline" style="text-align:center; padding:12px;" onclick="window.location.href='index.html#marketplace'">← Continue Shopping</button>
                     </div>
 
-                    <div id="checkout-status" class="checkout-status"></div>
+                    <div id="checkout-status" class="checkout-status" style="margin-top:16px;"></div>
                 </section>
 
                 <aside class="checkout-summary">
-                    <h3>Order Summary</h3>
+                    <h3 style="font-size: 20px; margin-bottom: 16px; color: var(--text-heading);">Order Summary</h3>
                     <div id="checkout-items"></div>
                     <div class="summary-total">
-                        <span>Total</span>
-                        <span id="checkout-total">₦0</span>
+                        <span>Total Payable</span>
+                        <span id="checkout-total" style="color:var(--accent-terracotta);">₦0</span>
                     </div>
                 </aside>
             </div>
         </div>
     </main>
 
+    <!-- Editorial Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">🌿 FarmConnect</span>
+                <p>Connecting Nigeria's agricultural growers and bulk buyers with transparency, fair prices, and direct community trust.</p>
+            </div>
+
+            <div class="footer-links-group">
+                <div class="footer-col">
+                    <h5>Marketplace</h5>
+                    <ul>
+                        <li><a href="index.html#marketplace">Browse All Produce</a></li>
+                        <li><a href="farmer.html">List Produce</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 FarmConnect Nigeria. Cultivating digital agriculture for all.</p>
+        </div>
+    </footer>
+
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="common.js"></script>
     <script src="checkout.js"></script>
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span class="footer-logo">🌿 FarmConnect</span>
-                <p>Connecting farmers and buyers across Nigeria. Fresh produce, fair prices, zero middlemen.</p>
-            </div>
-            <div class="footer-links">
-                <a href="index.html">Marketplace</a>
-                <a href="farmer.html">List Produce</a>
-                <a href="auth.html">Sign In</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 FarmConnect. All rights reserved.</p>
-        </div>
-    </footer>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/69fb0698ad369b1c32e90137/1jnu93hpd';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
 </body>
 </html>

@@ -38,6 +38,9 @@ function getCart() {
 
 function saveCart(cart) {
     localStorage.setItem('farmconnect-cart', JSON.stringify(cart));
+    if (typeof window.updateCartBadge === 'function') {
+        window.updateCartBadge();
+    }
 }
 
 function addItemToCart(item) {
@@ -112,32 +115,38 @@ function drawCard(item) {
     card.dataset.priceNum = parseInt(String(item.price).replace(/\D/g, ''), 10) || 0;
 
     const phoneNumber = item.phone || "2349025013517";
-    const message = encodeURIComponent(`Hello, I'm interested in the ${item.title} listed on FarmConnect.`);
+    const message = encodeURIComponent(`Hello ${item.farmer || 'Farmer'}, I am interested in buying ${item.title} (${item.quantity}) listed on FarmConnect.`);
     const whatsappLink = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
 
     const productKey = getProductKey(item);
 
     card.innerHTML = `
         <div class="img-container skeleton">
-            <img src="${item.image}" alt="${item.title}" class="card-img" onload="this.parentElement.classList.remove('skeleton')"
+            <img src="${item.image}" alt="${escapeHtml(item.title)}" class="card-img" onload="this.parentElement.classList.remove('skeleton')"
                  onerror="this.src='https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=500'">
         </div>
         <div class="card-content">
-            <span class="tag">${item.category}</span>
-            <h3 class="title">${item.title}</h3>
+            <div class="card-top-row">
+                <span class="tag">${escapeHtml(item.category)}</span>
+                <span class="location-chip">📍 ${escapeHtml(item.location)}</span>
+            </div>
+            <h3 class="title">${escapeHtml(item.title)}</h3>
             <div class="price">₦${formatPrice(item.price)}</div>
             <div class="details">
-    <p>📦 ${item.quantity}</p>
-    <p>📍 ${item.location}</p>
-    <p>🧑🏾‍🌾 ${item.farmer}</p>
-    ${item.createdAt ? `<p style="color:#9ca3af;font-size:13px;">🕐 Listed ${formatDate(item.createdAt)}</p>` : ''}
-</div>
+                <p>📦 <strong>Unit:</strong> ${escapeHtml(item.quantity)}</p>
+                <p>🧑🏾‍🌾 <strong>Farmer:</strong> ${escapeHtml(item.farmer)}</p>
+                ${item.createdAt ? `<p style="font-size:12px; color:var(--text-light); margin-top:4px;">🕐 Listed ${formatDate(item.createdAt)}</p>` : ''}
+            </div>
             <div class="rating-display" data-farmer-id="${escapeHtml(item.phone)}" data-farmer-name="${escapeHtml(item.farmer)}">
                 ${renderRatingHTML(item.phone)}
             </div>
             <div class="card-actions">
-                <a href="${whatsappLink}" target="_blank" class="btn-buy">Contact via WhatsApp</a>
-                <a href="checkout.html?product=${encodeURIComponent(productKey)}" class="btn-checkout">Secure Checkout</a>
+                <a href="${whatsappLink}" target="_blank" rel="noopener noreferrer" class="btn-buy">
+                    <span>💬</span> WhatsApp Farmer
+                </a>
+                <button type="button" class="btn-add-cart" data-key="${escapeHtml(productKey)}">
+                    <span>🛒</span> Add to Order
+                </button>
             </div>
         </div>
     `;
@@ -146,12 +155,19 @@ function drawCard(item) {
         openReviewModal(item.phone, item.farmer);
     });
 
-    const checkoutLink = card.querySelector('.btn-checkout');
-    if (checkoutLink) {
-        checkoutLink.addEventListener('click', (event) => {
-            event.preventDefault();
+    const addCartBtn = card.querySelector('.btn-add-cart');
+    if (addCartBtn) {
+        addCartBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             addItemToCart(item);
-            window.location.href = `checkout.html?product=${encodeURIComponent(productKey)}`;
+            addCartBtn.innerHTML = '<span>✓</span> Added to Cart!';
+            addCartBtn.style.background = 'var(--primary-forest)';
+            addCartBtn.style.color = '#ffffff';
+            setTimeout(() => {
+                addCartBtn.innerHTML = '<span>🛒</span> Add to Order';
+                addCartBtn.style.background = '';
+                addCartBtn.style.color = '';
+            }, 1800);
         });
     }
 
@@ -160,10 +176,16 @@ function drawCard(item) {
 
 // Wait for firebase to be ready, then attach listeners
 function initListeners() {
+    if (!window.fbDb || !gridContainer) return;
+
     window.fbDb.collection("produce").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
         gridContainer.innerHTML = '';
         if (snapshot.empty) {
-            gridContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 50px;">Waiting for new harvests...</p>`;
+            gridContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background:var(--bg-surface); border-radius:var(--radius-lg); border:1px dashed var(--border-warm);">
+                <p style="font-size:18px; font-weight:600; color:var(--text-heading); margin-bottom:8px;">Waiting for fresh harvests...</p>
+                <p style="font-size:14px; color:var(--text-muted);">Are you a local farmer? Be the first to list your produce!</p>
+                <a href="farmer.html" class="btn-nav-primary" style="margin-top:16px; display:inline-flex;">List Your Produce</a>
+            </div>`;
             return;
         }
         snapshot.forEach((doc) => drawCard(doc.data()));
@@ -224,20 +246,20 @@ function openReviewModal(farmerId, farmerName) {
     let actionHTML = '';
     if (!user || !profile) {
         actionHTML = `
-            <div class="review-locked">
-                <p style="margin-bottom:12px;">Sign in to leave a review</p>
-                <a href="auth.html?next=index.html" class="btn-submit-review" style="display:inline-block;text-decoration:none;">Sign In</a>
+            <div class="review-locked" style="background:var(--bg-sage-soft); border-radius:var(--radius-md); padding:16px; text-align:center; border:1px solid var(--border-sage);">
+                <p style="margin-bottom:12px; font-weight:600; color:var(--text-heading);">Sign in to leave a verified review</p>
+                <a href="auth.html?next=index.html" class="btn-submit-review" style="display:inline-block; text-decoration:none; padding:10px 24px;">Sign In</a>
             </div>`;
     } else if (alreadyReviewed) {
-        actionHTML = `<p class="review-locked">You've already reviewed this farmer. Thanks!</p>`;
+        actionHTML = `<p class="review-locked" style="background:var(--bg-sage-soft); border-radius:var(--radius-md); padding:14px; text-align:center; font-weight:600; color:var(--primary-olive);">You have already reviewed this farmer. Thank you for building trust!</p>`;
     } else {
         actionHTML = `
-            <form class="review-form" id="review-form">
-                <h4>Leave a review as ${escapeHtml(profile.name)}</h4>
+            <form class="review-form" id="review-form" style="margin-top:20px; padding-top:18px; border-top:1px solid var(--border-subtle);">
+                <h4 style="margin-bottom:12px; font-size:16px; color:var(--text-heading);">Leave a review as ${escapeHtml(profile.name)}</h4>
                 <div class="star-input" data-rating="0">
                     ${[1,2,3,4,5].map(n => `<span class="star-clickable" data-value="${n}">☆</span>`).join('')}
                 </div>
-                <textarea id="review-comment" placeholder="Share your experience (optional)" rows="3"></textarea>
+                <textarea id="review-comment" placeholder="Share your experience (produce freshness, delivery speed, packaging)..." rows="3"></textarea>
                 <button type="submit" class="btn-submit-review">Submit Review</button>
             </form>`;
     }
@@ -251,11 +273,11 @@ function openReviewModal(farmerId, farmerName) {
             <div class="modal-body">
                 <div class="rating-summary">
                     <div class="rating-big">★ ${avg}</div>
-                    <div class="rating-count">${count} ${count === 1 ? 'review' : 'reviews'}</div>
+                    <div class="rating-count">${count} ${count === 1 ? 'verified review' : 'verified reviews'}</div>
                 </div>
                 <div class="reviews-list">
                     ${reviews.length === 0
-                        ? '<p class="no-reviews">Be the first to leave a review.</p>'
+                        ? '<p class="no-reviews" style="text-align:center; color:var(--text-muted); font-style:italic; padding:20px;">No reviews yet. Be the first to review this farmer!</p>'
                         : reviews.map(r => `
                             <div class="review-item">
                                 <div class="review-header">
@@ -308,7 +330,7 @@ function closeModal() {
 }
 
 function submitReview(farmerId, farmerName) {
-    const user = window.fbAuth.currentUser;
+    const user = window.fbAuth?.currentUser;
     const profile = window.currentUserProfile;
     if (!user || !profile) {
         alert('Please sign in to leave a review.');
@@ -320,13 +342,13 @@ function submitReview(farmerId, farmerName) {
     const comment = document.getElementById('review-comment').value.trim();
 
     if (!rating || rating < 1) {
-        alert('Please select a star rating.');
+        alert('Please select a star rating between 1 and 5.');
         return;
     }
 
     const submitBtn = document.querySelector('.btn-submit-review');
     submitBtn.disabled = true;
-    submitBtn.innerText = "Submitting...";
+    submitBtn.innerText = "Submitting Review...";
 
     window.fbDb.collection("reviews").add({
         farmerId,
@@ -336,46 +358,56 @@ function submitReview(farmerId, farmerName) {
         buyerUid: user.uid,
         comment,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+        // success - snapshot updates modal
     }).catch(err => {
         console.error('Review error:', err);
         alert('Could not submit review. Please try again.');
         submitBtn.disabled = false;
         submitBtn.innerText = "Submit Review";
     });
-    // Snapshot listener will refresh modal
 }
 
 // ===== Search & filters =====
-document.getElementById('search-bar').addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-    document.querySelectorAll('.card').forEach(card => {
-        const title = card.querySelector('.title').innerText.toLowerCase();
-        const details = card.querySelector('.details').innerText.toLowerCase();
-        card.style.display = (title.includes(term) || details.includes(term)) ? "block" : "none";
+const searchInput = document.getElementById('search-bar');
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase().trim();
+        document.querySelectorAll('.card').forEach(card => {
+            const title = (card.querySelector('.title')?.innerText || '').toLowerCase();
+            const details = (card.querySelector('.details')?.innerText || '').toLowerCase();
+            const location = (card.querySelector('.location-chip')?.innerText || '').toLowerCase();
+            card.style.display = (title.includes(term) || details.includes(term) || location.includes(term)) ? "flex" : "none";
+        });
     });
-});
+}
 
 document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
-        document.querySelector('.tab.active').classList.remove('active');
+        document.querySelector('.tab.active')?.classList.remove('active');
         tab.classList.add('active');
         const filter = tab.getAttribute('data-filter');
         document.querySelectorAll('.card').forEach(card => {
-            const category = card.querySelector('.tag').innerText;
-            card.style.display = (filter === "all" || category === filter) ? "block" : "none";
+            const category = card.querySelector('.tag')?.innerText;
+            card.style.display = (filter === "all" || category === filter) ? "flex" : "none";
         });
     });
 });
 
 function applySort() {
-    const sortBy = document.getElementById('sort-select').value;
+    const sortSelect = document.getElementById('sort-select');
+    if (!sortSelect || !gridContainer) return;
+    const sortBy = sortSelect.value;
     const cards = Array.from(gridContainer.querySelectorAll('.card'));
     cards.sort((a, b) => {
-        if (sortBy === 'price-asc') return a.dataset.priceNum - b.dataset.priceNum;
-        if (sortBy === 'price-desc') return b.dataset.priceNum - a.dataset.priceNum;
-        return b.dataset.createdAt - a.dataset.createdAt;
+        if (sortBy === 'price-asc') return (Number(a.dataset.priceNum) || 0) - (Number(b.dataset.priceNum) || 0);
+        if (sortBy === 'price-desc') return (Number(b.dataset.priceNum) || 0) - (Number(a.dataset.priceNum) || 0);
+        return (Number(b.dataset.createdAt) || 0) - (Number(a.dataset.createdAt) || 0);
     });
     cards.forEach(card => gridContainer.appendChild(card));
 }
 
-document.getElementById('sort-select').addEventListener('change', applySort);
+const sortSelectEl = document.getElementById('sort-select');
+if (sortSelectEl) {
+    sortSelectEl.addEventListener('change', applySort);
+}

@@ -3,68 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="List your fresh produce on FarmConnect. Reach bulk buyers directly and grow your farming business.">
+    <meta name="description" content="List your fresh produce on FarmConnect. Reach bulk buyers directly across Nigeria and grow your farming business.">
     <meta property="og:title" content="Farmer Portal | FarmConnect">
     <meta property="og:description" content="List your harvest on FarmConnect and connect with bulk buyers across Nigeria.">
-    <meta name="theme-color" content="#10b981">
+    <meta name="theme-color" content="#223725">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <title>Farmer Portal | FarmConnect</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Top Navigation Bar -->
     <nav class="navbar">
-        <div class="logo">🌿 FarmConnect</div>
-        <div class="nav-links" id="nav-auth-area"></div>
+        <a href="index.html" class="nav-brand">
+            <span class="logo"><span class="logo-leaf">🌿</span> FarmConnect</span>
+        </a>
+
+        <ul class="nav-menu">
+            <li><a href="index.html#marketplace" class="nav-link">Marketplace</a></li>
+            <li><a href="index.html#why-direct" class="nav-link">Why Direct</a></li>
+            <li><a href="index.html#farmers" class="nav-link">Meet Farmers</a></li>
+        </ul>
+
+        <div class="nav-actions" id="nav-auth-area"></div>
     </nav>
+
     <div class="form-container">
         <div class="form-card">
-            <h2>List Your Harvest</h2>
+            <div class="form-header">
+                <span class="section-subtitle">Farmer Portal</span>
+                <h2 class="section-title" style="font-size: 28px; margin-bottom: 6px;">List Your Fresh Harvest</h2>
+                <p class="section-desc">Fill in your produce details to instantly reach thousands of wholesale and retail buyers.</p>
+            </div>
+
             <form id="upload-form">
                 <div class="input-group">
                     <label for="title">Produce Name</label>
-                    <input type="text" id="title" placeholder="e.g. Fresh Red Onions" required>
+                    <input type="text" id="title" placeholder="e.g. Fresh Red Onions, Yellow Maize, Sweet Potatoes" required>
                 </div>
+
                 <div class="input-row">
                     <div class="input-group">
                         <label for="category">Category</label>
                         <select id="category" required>
-                            <option value="Vegetables">Vegetables</option>
-                            <option value="Fruits">Fruits</option>
-                            <option value="Grains">Grains</option>
-                            <option value="Tubers">Tubers</option>
+                            <option value="Vegetables">🥬 Vegetables</option>
+                            <option value="Fruits">🍉 Fruits</option>
+                            <option value="Grains">🌽 Grains</option>
+                            <option value="Tubers">🥔 Tubers</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label for="price">Price (₦)</label>
-                        <input type="number" id="price" placeholder="50000" required>
+                        <label for="price">Price (₦ Naira)</label>
+                        <input type="number" id="price" placeholder="50000" min="100" required>
                     </div>
                 </div>
+
                 <div class="input-group">
-                    <label for="quantity">Quantity</label>
-                    <input type="text" id="quantity" placeholder="50kg Bag" required>
+                    <label for="quantity">Quantity / Bag Size</label>
+                    <input type="text" id="quantity" placeholder="e.g. 50kg Bag, 100kg Jute, 1 Ton, Crate" required>
                 </div>
+
                 <div class="input-row">
                     <div class="input-group">
-                        <label for="farmer">Farmer Name</label>
-                        <input type="text" id="farmer" placeholder="Your Name" required>
+                        <label for="farmer">Farmer / Farm Name</label>
+                        <input type="text" id="farmer" placeholder="e.g. Adeola Farms" required>
                     </div>
                     <div class="input-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" placeholder="e.g. Epe" required>
+                        <label for="location">Farm Location</label>
+                        <input type="text" id="location" placeholder="e.g. Epe, Lagos or Iseyin, Oyo" required>
                     </div>
                 </div>
+
                 <div class="input-group">
-                    <label for="phone">WhatsApp Number</label>
+                    <label for="phone">WhatsApp Business Number</label>
                     <input type="tel" id="phone" placeholder="e.g. 08012345678 or +234 801 234 5678" required>
+                    <small style="color:var(--text-light); font-size:12px; margin-top:4px; display:block;">Buyers will message you directly on this WhatsApp number.</small>
                 </div>
+
                 <div class="input-group">
-                    <label for="image">Image URL</label>
-                    <input type="url" id="image" placeholder="https://farmconnect11.netlify.app/assets/farm.jpg">
+                    <label for="image">Produce Photo URL (Optional)</label>
+                    <input type="url" id="image" placeholder="https://images.unsplash.com/...">
+                    <small style="color:var(--text-light); font-size:12px; margin-top:4px; display:block;">Leave blank to use our high-quality farm photography default.</small>
                 </div>
-                <button type="submit" class="btn-submit" id="submit-btn">List Produce</button>
+
+                <button type="submit" class="btn-submit" id="submit-btn">🌱 Publish Harvest Listing</button>
             </form>
         </div>
     </div>
+
+    <!-- Editorial Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">🌿 FarmConnect</span>
+                <p>Connecting Nigeria's agricultural growers and bulk buyers with transparency, fair prices, and direct community trust.</p>
+            </div>
+
+            <div class="footer-links-group">
+                <div class="footer-col">
+                    <h5>Marketplace</h5>
+                    <ul>
+                        <li><a href="index.html#marketplace">Browse All Produce</a></li>
+                        <li><a href="checkout.html">My Cart & Order</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>For Farmers</h5>
+                    <ul>
+                        <li><a href="farmer.html">List Your Harvest</a></li>
+                        <li><a href="auth.html">Farmer Sign In</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 FarmConnect Nigeria. Cultivating digital agriculture for all.</p>
+        </div>
+    </footer>
 
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -72,35 +128,17 @@
     <script src="common.js"></script>
     <script src="farmer.js"></script>
 
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span class="footer-logo">🌿 FarmConnect</span>
-                <p>Connecting farmers and buyers across Nigeria. Fresh produce, fair prices, zero middlemen.</p>
-            </div>
-            <div class="footer-links">
-                <a href="index.html">Marketplace</a>
-                <a href="farmer.html">List Produce</a>
-                <a href="auth.html">Sign In</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 FarmConnect. All rights reserved.</p>
-        </div>
-    </footer>
-
     <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/69fb0698ad369b1c32e90137/1jnu93hpd';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/69fb0698ad369b1c32e90137/1jnu93hpd';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
 </body>
 </html>
