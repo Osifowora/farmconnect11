@@ -1547,6 +1547,43 @@ input:focus, select:focus, textarea:focus {
     padding: 36px;
 }
 
+.checkout-summary {
+    background: var(--bg-sage-tint);
+    border-left: 1px solid var(--border-subtle);
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout-actions {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.checkout-actions .btn-submit {
+    margin-top: 0;
+}
+
+.checkout-actions .btn-nav-outline {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 13px 20px;
+    font-size: 15px;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--border-warm);
+    background: transparent;
+    color: var(--text-heading);
+    transition: all 0.2s ease;
+}
+
+.checkout-actions .btn-nav-outline:hover {
+    background: var(--bg-sage-soft);
+    border-color: var(--primary-olive);
+}
+
 .checkout-summary-header {
     display: flex;
     justify-content: space-between;
